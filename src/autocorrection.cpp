@@ -139,7 +139,7 @@ int histogram(Mat src, int img_width, int img_height){
   Mat image = src;
   int width = img_width, height = img_height;
   Mat histR;
-  int nbins = 128;
+  int nbins = 511;
   float range[] = {0, 256};
   const float *histrange = { range };
   bool uniform = true;
@@ -163,9 +163,12 @@ int histogram(Mat src, int img_width, int img_height){
       line(histImgR,
            Point(i, histh),
            Point(i, histh-cvRound(histR.at<float>(i))),
-           Scalar(0, 0, 255), 1, 8, 0);
+           Scalar(0, 255, 255), 1, 8, 0);
     }
     //histImgR.copyTo(image(Rect( 0, 0, nbins, histh)));
+	string outFilename("../img/histogram.jpg");
+	cout << "Saving histogram image : " << outFilename << endl; 
+	imwrite(outFilename, histImgR);
     imshow("histogram", histImgR);
 	waitKey(0);
   return 0;
@@ -198,7 +201,7 @@ int main(int argvc , char** argv){
 
 	//adaptiveThreshold(image, image, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY, 25, 5);
 	
-	threshold(image, image, 200, 255, CV_THRESH_OTSU);
+	threshold(image, image, 0, 255, CV_THRESH_OTSU);
 
     // ----  Resize image ----- //1654 × 2339
 	//1240 × 1753
@@ -207,6 +210,10 @@ int main(int argvc , char** argv){
 	Size size(width/2, height/2);
     resize(image,image,size);//resize image
 
+	 // Write aligned image to disk. 
+	string outFilename("../img/im_bin/binary.jpg");
+	cout << "Saving aligned image : " << outFilename << endl; 
+	imwrite(outFilename, image);
 	imshow("image_binary", image );
     waitKey(0);
 

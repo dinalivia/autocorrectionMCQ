@@ -200,7 +200,7 @@ int main(int argvc , char** argv){
 
 	//adaptiveThreshold(image, image, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY, 25, 5);
 	
-	threshold(image, image, 200, 255, CV_THRESH_OTSU);
+	threshold(image, image, 0, 255, CV_THRESH_OTSU);
 
     // ----  Resize image ----- //1654 × 2339
 	//1240 × 1753

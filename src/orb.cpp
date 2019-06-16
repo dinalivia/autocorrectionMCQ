@@ -78,11 +78,19 @@ int main(int argc, char **argv)
   imshow("reference_image", imReference);
   waitKey(0);
  
-  // Read image to be aligned
-  string imFilename("../img/pi_cam/test2.jpg");
-  cout << "Reading image to align : " << imFilename << endl; 
-  Mat im = imread(imFilename);
+  // ----  open image ----- //
 
+        if (argc != 2) {
+            cerr << "Usage: " << argv[0] << " <img_path>" << endl;
+            return 1;
+        }
+
+  string imFilename = argv[1];
+  Mat im = imread(imFilename,IMREAD_COLOR);
+  cout << "Reading image to align : " << imFilename << endl; 
+  
+
+  // resize image
   width = im.size().width;
   height = im.size().height;
   Size size2(width/2, height/2);
@@ -100,7 +108,7 @@ int main(int argc, char **argv)
   alignImages(im, imReference, imReg, h);
  
   // Write aligned image to disk. 
-  string outFilename("aligned.jpg");
+  string outFilename("../img/im_aligned/aligned.jpg");
   cout << "Saving aligned image : " << outFilename << endl; 
   imwrite(outFilename, imReg);
   imshow("aligned_image", imReg);
