@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.6)
 
 project(TCC)
  
-find_package(OpenCV REQUIRED)
+#find_package(OpenCV REQUIRED)
+
+set(OpenCV_INCLUDE_DIRS /usr/local/share/OpenCV)
 
 set(TCC_INCLUDE_DIRS
     ${CMAKE_SOURCE_DIR}
