@@ -8,7 +8,7 @@ import numpy as np;
 import imageprocessing as improc
 
 # Read reference image
-img = cv2.imread("../../img/doc-2.jpg", cv2.IMREAD_GRAYSCALE)
+img = cv2.imread("../../img/gabarito.jpg", cv2.IMREAD_GRAYSCALE)
 print('Original Dimensions 1: ',img.shape)
 width = int(img.shape[1]/3)
 height = int(img.shape[0]/3)
@@ -22,7 +22,9 @@ cv2.waitKey(0)
 
 
 # Read new image
-im = cv2.imread("otsu.jpg", cv2.IMREAD_GRAYSCALE)
+# im = cv2.imread("otsu.jpg", cv2.IMREAD_GRAYSCALE)
+# im = cv2.imread("../../img/gabarito.jpg", cv2.IMREAD_GRAYSCALE)
+im = cv2.imread("../../img/Gabarito-preenchido.jpg", cv2.IMREAD_GRAYSCALE)
 
 # Resize new image
 im = cv2.resize(im, dim, interpolation = cv2.INTER_AREA) 
@@ -35,41 +37,58 @@ keypoints = improc.findBlobs (im, 400, 800)
 print(keypoints)
 
 # Sort keypoints and filter area
-keypoints = improc.filterBlobs(keypoints, height, 0.2)
+keypoints = improc.filterBlobs(keypoints, dim, 0.2)
 print("filterBlobs")
 print(keypoints)
 
 # Draw detected blobs as red circles.
 # cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures
 # the size of the circle corresponds to the size of blob
-im_with_keypoints = cv2.drawKeypoints(im, keypoints,
-                                      np.array([]), (0,0,255),
-                                      cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+im_keypts = cv2.drawKeypoints(im, keypoints,
+                              np.array([]), (0,0,255),
+                              cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
 # Show blobs
-cv2.imshow("keypoints",im_with_keypoints)
+cv2.imshow("keypoints", im_keypts)
 cv2.waitKey(0)
-cv2.imwrite("Keypoints.jpg", im_with_keypoints)
+cv2.imwrite("Keypoints.jpg", im_keypts)
 
-#FIXME
-cv2.rectangle(im, (int(keypoints[0].pt[0]), int(keypoints[0].pt[1])),(int(keypoints[2].pt[0]), int(keypoints[2].pt[1])),127, 2)
+# FIXME
+# Draw Region of Interest (ROI)
+cv2.rectangle(im, (int(keypoints[0].pt[0]), int(keypoints[0].pt[1])),(int(keypoints[3].pt[0]), int(keypoints[3].pt[1])),127, 2)
 
+# Show ROI
 cv2.imwrite("roi.png",im)
 cv2.imshow("ROI", im)
 cv2.waitKey(0)
 
 # Correct rotation
 pt1 = [int(keypoints[0].pt[0]), int(keypoints[0].pt[1])]
-pt2 = [int(keypoints[3].pt[0]), int(keypoints[3].pt[1])]
-pt3 = [int(keypoints[1].pt[0]), int(keypoints[1].pt[1])]
-pt4 = [int(keypoints[2].pt[0]), int(keypoints[2].pt[1])]
+pt2 = [int(keypoints[1].pt[0]), int(keypoints[1].pt[1])]
+pt3 = [int(keypoints[2].pt[0]), int(keypoints[2].pt[1])]
+pt4 = [int(keypoints[3].pt[0]), int(keypoints[3].pt[1])]
 angle = improc.angle(pt1,pt2)
 img = improc.rotate(im,angle,im.shape)
 
-imcrop  = im[pt2[1]:pt3[1], pt1[0]:pt4[0]]
-
-cv2.imwrite("rotated.png",imcrop)
-cv2.imshow("Rotated", imcrop)
+# Show Rotated image
+cv2.imwrite("rotated.png",img)
+cv2.imshow("Rotated", img)
 cv2.waitKey(0)
+
+# Extract ROI
+# imcrop  = im[pt1[1]:pt4[1], pt2[0]:pt3[0]]
+imcrop  = im[pt1[1]:pt3[1], pt3[0]:pt2[0]]
+
+# Print keypoints
+for keyPoint in keypoints:
+    x = keyPoint.pt[0]
+    y = keyPoint.pt[1]
+    s = keyPoint.size
+    print('[' + str(x) + ',' + str(y) + ']\n')
+
+# Show Rotated ROI
+cv2.imwrite("rotated_roi.png",imcrop)
+#cv2.imshow("Rotated_roi", imcrop)
+#cv2.waitKey(0)
 
 cv2.destroyAllWindows()
