@@ -46,30 +46,43 @@ cv2.imshow("keypoints", im_keypts)
 cv2.waitKey(0)
 cv2.imwrite("Keypoints.jpg", im_keypts)
 
-# saving answers to csv file 
+# create list with keys
+key = col.deque([])
+for i in range(0,len(pts)):
+    x = int(pts[i].pt[0])
+    y = int(pts[i].pt[1])
+    key.append(str(y*height+x))
+
+print(key)
+
+# mapping answers and saving to csv file 
 answers = csv.writer(open("answers.csv","wb"), delimiter=',')
 print("len(pts)")
 print(len(pts))
 
 answers.writerow(["Qnumber","alternative","x_pos","y_pos", "key"])
-alternative = col.deque(['a','b','c','d','e'])
+alternative = col.deque([])
 question = 1
 
-for i in range(0,len(pts)):
-    x = int(pts[i].pt[0])
-    y = int(pts[i].pt[1])
-
-    key = y*height+x
-    
-    answers.writerow([question,
-                     alternative[0],
-                     str(pts[i].pt[0]),
-                     str(pts[i].pt[1]),
-                      str(y*height+x)])
-    alternative.rotate(-1)
-    if(alternative[0]=='a'):
-        question = question + 1
-
+with open('labels.csv', 'rb') as csvfile:
+    labels = csv.reader(csvfile, delimiter=',')
+    print("reading file")
+    for row in labels:
+        print("reading row") #FIXME - program stops here
+        
+        if(len(key)>0):
+            print("passou do len(key)>0")
+            if(key[0] <= (row[4]+row[4]*0.02) or
+               key[0] >= (row[4]-row[4]*0.02)):
+                print("passou aqui")
+                answers.writerow([row[0],
+                                  row[1],
+                                  row[2],
+                                  row[3],
+                                  row[4]])
+                key.popleft()
+            else:
+                print("Answer not mapped")
         
 # Draw answers limits
 #improc.drawlimits(img, dim, 5, 20, 0.1, 0.028)
