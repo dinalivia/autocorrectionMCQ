@@ -27,7 +27,7 @@ form = Tkinter.Tk()
 
 getFld = Tkinter.IntVar()
 
-form.wm_title('Correcao Automatica de provas multipla escolha')
+form.wm_title('Correção Automática de provas múltipla escolha')
 
 
 def searchkeyfile(_title):
@@ -43,7 +43,7 @@ stepOne.grid(row=0, columnspan=7, sticky='W', \
              padx=5, pady=5, ipadx=5, ipady=5)
 #checkbox
 transChk = Tkinter.Checkbutton(stepOne, \
-           text="Escrever sequencia", onvalue=1, offvalue=0)
+           text="Escrever sequência", onvalue=1, offvalue=0)
 transChk.grid(row=0, column=0, sticky='WE', padx=3, pady=2)
 transRwLbl = Tkinter.Label(stepOne, \
                            text=" => Ex. a,b,c,d,e,a,b,c, ...")
@@ -68,11 +68,11 @@ inFileBtn.grid(row=2, column=8, sticky='WE', padx=5, pady=2)
 
 # ------- Respostas dos docentes -------
 
-stepTwo = Tkinter.LabelFrame(form, text=" 2. Informe as respostas dos docentes: ")
+stepTwo = Tkinter.LabelFrame(form, text=" 2. Informe as respostas dos discentes: ")
 stepTwo.grid(row=3, columnspan=7, sticky='W', \
              padx=5, pady=5, ipadx=5, ipady=5)
 
-inFileLb2 = Tkinter.Label(stepTwo, text="Escolher diretorio de imagens:")
+inFileLb2 = Tkinter.Label(stepTwo, text="Escolher diretório de imagens:")
 inFileLb2.grid(row=4, column=0, sticky='WE', padx=5, pady=2)
 
 inFileTxt2 = Tkinter.Entry(stepTwo)
@@ -84,11 +84,11 @@ inFileBtn2.grid(row=4, column=8, sticky='W', padx=5, pady=2)
 
 # ------- Processando e salvando resultados -------
 
-stepThree = Tkinter.LabelFrame(form, text=" 3. Resultado das correcoes ")
+stepThree = Tkinter.LabelFrame(form, text=" 3. Resultado das correções ")
 stepThree.grid(row=5, columnspan=7, sticky='W', \
                padx=5, pady=5, ipadx=5, ipady=5)
 
-inFileLb3 = Tkinter.Label(stepThree, text="Escolher diretorio de imagens:")
+inFileLb3 = Tkinter.Label(stepThree, text="Escolher diretório de imagens:")
 inFileLb3.grid(row=4, column=0, sticky='WE', padx=5, pady=2)
 
 inFileTxt3 = Tkinter.Entry(stepThree)
@@ -113,7 +113,7 @@ scrollbar.grid(row=0, column=9, columnspan=2, rowspan=8, \
 
 scrollbar.config(command=helpText.yview)
 
-helpText.insert(INSERT, "\nEste e o programa de correcao automatica de provas de multipla escolha. Para efetuar as correcoes, preencha os campos  ao lado. \n\n -> Passo 1. \nDefinir sequencia de respostas corretas do gabarito ou informar imagem do gabarito correto preenchido \n\n -> Passo 2. \nInformar diretorio com imagens de respostas dos alunos. \n\n -> Passo 3. \nEscolher diretorio para salvar o resultado dos alunos")
+helpText.insert(INSERT, "\nEste e o programa de correção automática de provas de múltipla escolha. Para efetuar as correções, preencha os campos  ao lado. \n\n -> Passo 1. \nDefinir sequência de respostas corretas do gabarito ou informar imagem do gabarito correto preenchido \n\n -> Passo 2. \nInformar diretório com imagens de respostas dos alunos. \n\n -> Passo 3. \nEscolher diretório para salvar o resultado dos alunos")
 
 helpText.configure(yscrollcommand=scrollbar.set, state='disable')
 
@@ -124,12 +124,12 @@ helpText.grid(row=0, column=0, columnspan=2, rowspan=8, \
 
 # ------- Iniciar correcao -------
 
-stepFour = Tkinter.LabelFrame(form, text=" 4. Iniciar correcao ")
+stepFour = Tkinter.LabelFrame(form, text=" 4. Realizar correção ")
 stepFour.grid(row=1, column=9, columnspan=2, rowspan=8, \
             sticky='SWE', \
              padx=5, pady=5, ipadx=5, ipady=5)
 
-inFileBtn3 = Tkinter.Button(stepFour, text="Iniciar correcao", width=25)
+inFileBtn3 = Tkinter.Button(stepFour, text="Iniciar correção", width=25)
 inFileBtn3.grid(row=1, column=9, \
             sticky='WE', \
              padx=5, pady=5, ipadx=5, ipady=5)
