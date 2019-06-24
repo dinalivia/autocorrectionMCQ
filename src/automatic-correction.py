@@ -33,12 +33,7 @@ form.wm_title('Correcao Automatica de provas multipla escolha')
 def searchkeyfile(_title):
     sec = Tk()
     sec.filename = tkFileDialog.askopenfilename(initialdir = "/home/pi/git/TCC/autocorrectionMCQ", title = _title)
-    print("passou aqui")
-    sec = 
-    return sec.filenamme
-    
-
-
+    #return sec.filenamme
 
 # ----- Gabarito -----
 
@@ -67,6 +62,8 @@ inFileTxt.grid(row=2, column=1, columnspan=7, sticky="WE",pady=3)
 
 inFileBtn = Tkinter.Button(stepOne, text="Buscar", command = searchkeyfile("Selecione o arquivo de gabarito"))
 inFileBtn.grid(row=2, column=8, sticky='WE', padx=5, pady=2)
+
+#inFileTxt.insert(INSERT, )
 
 
 # ------- Respostas dos docentes -------
@@ -100,19 +97,18 @@ inFileTxt3.grid(row=4, column=1, columnspan=7, sticky="WE", pady=3)
 inFileBtn3 = Tkinter.Button(stepThree, text="Buscar")
 inFileBtn3.grid(row=4, column=8, sticky='W', padx=5, pady=2)
 
-
 # ------- Help section -------
 
 helpLf = Tkinter.LabelFrame(form, text=" Ajuda ")
 helpLf.grid(row=0, column=9, columnspan=2, rowspan=8, \
-            sticky='WE', \
+            sticky='NWE', \
              padx=5, pady=5, ipadx=5, ipady=5)
 
-helpText = Tkinter.Text(helpLf,width = 30, height=15)
+helpText = Tkinter.Text(helpLf,width = 30, height=10)
 
-scrollbar = Scrollbar(form, command=helpText.yview, orient=VERTICAL)
+scrollbar = Scrollbar(helpLf, command=helpText.yview, orient=VERTICAL)
 scrollbar.grid(row=0, column=9, columnspan=2, rowspan=8, \
-            sticky='NES', \
+            sticky='NSWE', \
              padx=5, pady=5, ipadx=5, ipady=5)
 
 scrollbar.config(command=helpText.yview)
@@ -124,6 +120,20 @@ helpText.configure(yscrollcommand=scrollbar.set, state='disable')
 helpText.grid(row=0, column=0, columnspan=2, rowspan=8, \
             sticky='W', \
              padx=5, pady=5, ipadx=5, ipady=5)
+
+
+# ------- Iniciar correcao -------
+
+stepFour = Tkinter.LabelFrame(form, text=" 4. Iniciar correcao ")
+stepFour.grid(row=1, column=9, columnspan=2, rowspan=8, \
+            sticky='SWE', \
+             padx=5, pady=5, ipadx=5, ipady=5)
+
+inFileBtn3 = Tkinter.Button(stepFour, text="Iniciar correcao", width=25)
+inFileBtn3.grid(row=1, column=9, \
+            sticky='WE', \
+             padx=5, pady=5, ipadx=5, ipady=5)
+
 
 form.mainloop()
 
