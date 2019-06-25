@@ -10,7 +10,8 @@
 # Standard imports
 import csv
 import argparse
-
+from Tkinter import *
+import Tkinter, Tkconstants, tkFileDialog, tkMessageBox
 
 #instantiate the parser
 parser = argparse.ArgumentParser(description=
@@ -65,3 +66,6 @@ print("Wrong answers = " + str(wrong_answers))
 f1.close()
 f2.close()
 f3.close()
+
+
+tkMessageBox.showinfo("Informacao","Correcao finalizada com sucesso! \n\n Respostas corretas: " + str(correct_answers) + "\n Respostas incorretas: " + str(wrong_answers))
