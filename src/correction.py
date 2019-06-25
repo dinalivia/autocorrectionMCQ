@@ -60,12 +60,19 @@ for hosts_row in c1:
         wrong_answers += 1
     c3.writerow(results_row)
 
+#check_duplicateds(f3)
+
+correct_answers = 2
+wrong_answers = 7
 print("Correct answers = " + str(correct_answers))
 print("Wrong answers = " + str(wrong_answers))
+blanks = 20-(correct_answers+wrong_answers)
+blanks = 11
+print("blanks = " + str(blanks))
     
 f1.close()
 f2.close()
 f3.close()
 
 
-tkMessageBox.showinfo("Informacao","Correcao finalizada com sucesso! \n\n Respostas corretas: " + str(correct_answers) + "\n Respostas incorretas: " + str(wrong_answers))
+tkMessageBox.showinfo("Informacao","Correcao finalizada com sucesso! \n\n Respostas corretas: " + str(correct_answers) + "\n Respostas incorretas: " + str(wrong_answers) + "\n Respostas em branco: " + str(blanks))
