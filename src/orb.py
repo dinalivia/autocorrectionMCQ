@@ -1,6 +1,7 @@
 from __future__ import print_function
 import cv2
 import numpy as np
+import argparse
 
 
 MAX_MATCHES = 500
@@ -54,14 +55,26 @@ def alignImages(im1, im2):
 
 
 if __name__ == '__main__':
+
+  #instantiate the parser
+  parser = argparse.ArgumentParser(description=
+                                  "Align image app, \
+                                  arg1 = image path, \
+                                  arg2 = aligned img path")
+
+  parser.add_argument('img_path', type=str,
+                      help='Enter the file path')
+  parser.add_argument('aligned_path', type=str,
+                      help="Enter destination for aligned img")
+  args = parser.parse_args()
   
   # Read reference image
-  refFilename = "../../img/doc-2.jpg"
+  refFilename = "../img/doc-2.jpg"
   print("Reading reference image : ", refFilename)
   imReference = cv2.imread(refFilename, cv2.IMREAD_COLOR)
-
+  
   # Read image to be aligned
-  imFilename = "../../img/pi_cam/cam2.png"
+  imFilename = args.img_path
   print("Reading image to align : ", imFilename);  
   im = cv2.imread(imFilename, cv2.IMREAD_COLOR)
   
@@ -71,10 +84,21 @@ if __name__ == '__main__':
   imReg, h = alignImages(im, imReference)
   
   # Write aligned image to disk. 
-  outFilename = "aligned.jpg"
+  outFilename = args.aligned_path
   print("Saving aligned image : ", outFilename); 
   cv2.imwrite(outFilename, imReg)
+  cv2.imshow("alinhada", imReg)
+  cv2.waitKey(0)
 
   # Print estimated homography
   print("Estimated homography : \n",  h)
-  
+
+  # Read image 
+  src = cv2.imread(outFilename, cv2.IMREAD_GRAYSCALE); 
+
+  #Otsu threhold
+  th, dst = cv2.threshold(src, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU);
+  print("Saving filtered image : ", outFilename); 
+  cv2.imwrite(outFilename, dst);
+  cv2.imshow("binaria", dst)
+  cv2.waitKey(0)

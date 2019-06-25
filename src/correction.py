@@ -9,10 +9,23 @@
 
 # Standard imports
 import csv
+import argparse
 
 
-f1 = open('../answers/answers.csv', 'r')
-f2 = open('../gabarito/answers.csv','r')
+#instantiate the parser
+parser = argparse.ArgumentParser(description=
+                              "extract answers app, \
+                              arg1 = answers csv, \
+                              arg2 = keyanswer csv")
+
+parser.add_argument('ans_path', type=str,
+                  help='Enter the file path')
+parser.add_argument('key_path', type=str,
+                  help="Enter destination for ROI img")
+args = parser.parse_args()
+
+f1 = open(args.ans_path, 'r')
+f2 = open(args.key_path,'r')
 f3 = open('results.csv', 'w')
 
 c1 = csv.reader(f1)

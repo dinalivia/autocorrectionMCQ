@@ -65,6 +65,7 @@ def filterBlobs(pts, im_size, percentage):
     #pts = sorted(pts, key=lambda pts:
                  #pts.pt[1]*im_height+pts.pt[0])
 
+    # FIXME
     pts.sort(key=lambda points:
              int(int(points.pt[1])*im_height)+
              int(points.pt[0]))
