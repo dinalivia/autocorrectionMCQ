@@ -119,6 +119,43 @@ def drawlimits(img, imsize, numchoices, numquestions, marginH, marginV):
         cv2.imshow("limits", img)
         cv2.waitKey(0)
 
+def order_points(pts):
+	rect = np.zeros((4, 2), dtype = "float32")
+        
+	s = np.array(pts).sum(axis = 1)
+        print "SUM : "
+        print s
+	rect[0] = pts[np.argmin(s)]
+	rect[2] = pts[np.argmax(s)]
+ 
+	# now, compute the difference between the points, the
+	# top-right point will have the smallest difference,
+	# whereas the bottom-left will have the largest difference
+	diff = np.diff(pts, axis = 1)
+	rect[1] = pts[np.argmin(diff)]
+	rect[3] = pts[np.argmax(diff)]
+ 
+	# return the ordered coordinates
+	return rect
+
+def warp_img(img, pts):
+	rect = order_points(pts)
+	(tl, tr, br, bl) = rect
+
+        maxWidth = 155
+        maxHeight = 540
+        
+        dst = np.array([
+		[0, 0],
+		[maxWidth - 1, 0],
+		[maxWidth - 1, maxHeight - 1],
+		[0, maxHeight - 1]], dtype = "float32")
+
+        M = cv2.getPerspectiveTransform(rect, dst)
+	warped = cv2.warpPerspective(img, M, (maxWidth, maxHeight))
+	return warped
+
+
 def labelanswers(keypts):
     #answer.txt
     return 0

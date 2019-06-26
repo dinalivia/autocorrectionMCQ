@@ -62,12 +62,9 @@ for hosts_row in c1:
 
 #check_duplicateds(f3)
 
-correct_answers = 2
-wrong_answers = 7
 print("Correct answers = " + str(correct_answers))
 print("Wrong answers = " + str(wrong_answers))
 blanks = 20-(correct_answers+wrong_answers)
-blanks = 11
 print("blanks = " + str(blanks))
     
 f1.close()

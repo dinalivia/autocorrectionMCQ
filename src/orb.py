@@ -87,8 +87,8 @@ if __name__ == '__main__':
   outFilename = args.aligned_path
   print("Saving aligned image : ", outFilename); 
   cv2.imwrite(outFilename, imReg)
-  cv2.imshow("alinhada", imReg)
-  cv2.waitKey(0)
+  #cv2.imshow("alinhada", imReg)
+  #cv2.waitKey(0)
 
   # Print estimated homography
   print("Estimated homography : \n",  h)
@@ -100,5 +100,5 @@ if __name__ == '__main__':
   th, dst = cv2.threshold(src, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU);
   print("Saving filtered image : ", outFilename); 
   cv2.imwrite("otsu.png", dst);
-  cv2.imshow("binaria", dst)
-  cv2.waitKey(0)
+  #cv2.imshow("binaria", dst)
+  #cv2.waitKey(0)
