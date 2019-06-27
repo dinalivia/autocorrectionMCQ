@@ -45,6 +45,9 @@ def open_dir1():
 def open_dir2():
     res_dir = askdirectory()
     inFileTxt3.insert(INSERT,res_dir)
+
+def Autocorrect():
+    os.system("./test.sh")
     
 form = Tkinter.Tk()
 getFld = Tkinter.IntVar()
@@ -149,7 +152,7 @@ stepFour.grid(row=1, column=9, columnspan=2, rowspan=8, \
             sticky='SWE', \
              padx=5, pady=5, ipadx=5, ipady=5)
 
-inFileBtn3 = Tkinter.Button(stepFour, text="Iniciar correção", width=25)
+inFileBtn3 = Tkinter.Button(stepFour, text="Iniciar correção", width=25, command= Autocorrect)
 inFileBtn3.grid(row=1, column=9, \
             sticky='WE', \
              padx=5, pady=5, ipadx=5, ipady=5)
@@ -158,27 +161,4 @@ inFileBtn3.grid(row=1, column=9, \
 form.mainloop()
 
 
-# read all images from pi_cam folder and
-# correct perspective and save in im_aligned folder
-#
-# orb for all files in folder
-
-#pre-processing images
-
-
-
-'''
-
-
-main.mainloop()
-
-# receive path to read images
-sec = Tk()
-#root.filename = tkFileDialog.asksaveasfilename(initialdir = "/home/pi", title = "Selecione o arquivo de gabarito", filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
-
-
-
-sec.directory = tkFileDialog.askdirectory()
-print (sec.directory)
-'''
 

@@ -22,12 +22,14 @@ parser = argparse.ArgumentParser(description=
 parser.add_argument('ans_path', type=str,
                   help='Enter the file path')
 parser.add_argument('key_path', type=str,
-                  help="Enter destination for ROI img")
+                    help="Enter destination for ROI img")
+parser.add_argument('res_path', type=str,
+                  help="Enter destination for result")
 args = parser.parse_args()
 
 f1 = open(args.ans_path, 'r')
 f2 = open(args.key_path,'r')
-f3 = open('results.csv', 'w')
+f3 = open(args.res_path, 'w')
 
 c1 = csv.reader(f1)
 c2 = csv.reader(f2)
